@@ -10,3 +10,7 @@ script:
 - "./build.sh"
 after_success:
 - "./push.sh"
+notifications:
+  slack:
+    rooms:
+      secure: ih3CaiOCnm+g4/fi4OsPMYzGIy5NovoUQ97s6TCTEhSI36leH9Nhb1EzEhkIRAl3Kk0sEH6asbROqs8x4pw6I8TaimzaisuF/2YxqErFUw04mTew/fkHC+sv7b+GmSo+VRVhsbf8wOuENdef0fUQ1mY/M83n9xHu8aZwI7CjefP4qd8JiiwQja8sdyqi+OTBxrjLpkvKtkrtr1nOT6yZ+fULXzt3vZdZfBYfgkDMqv+W28MeWEfFtbrSTLx6eQM1oMMBnVaV1X5X+tXutkcxEwW7KzKeiYJYq9EYFyhxxdJwApH0AXwACBGcogE1JJnUs+ntlIPSNSKjALcyIxOdNYb/Uv/+R+Vnkd2ZyKJt6UZl63jgeCpgILsb4qhyfZBYtl2D2xP09Lkufv++k8kCqb2kfV+zv0znglIp7nKo1IPiiugXOQ6GugD6VDCWe+Sb8flcfscWOvtnsGzcNaC8AQIPHBEMN8Vw6CnvBSDc1mzOpsELTuVYiwdqeDmp1JyNy+xNGVhtzEuKsLxxB93JZMjAIhcbpOtTb8ATBkHZrajV+VaPu1cTK7IGdhfJnXmuT/0/ISuLEJyPHorQGvchW6XTA8RBuT0evG7ETUwbRO7VmvfDtSX+7VQb5xghTfxAZRyacTEOOn/hDUdYSq9Sei9/qcHYcsiGXsilcCjTC6I=
