@@ -1,11 +1,11 @@
 FROM multiarch/debian-debootstrap:armhf-jessie
 
-RUN apt-get update && apt-get install -y wget curl
+RUN apt-get update && DEBIANFRONTEND=noninterative apt-get install -y wget curl
 
 # add our user and group first to make sure their IDs get assigned consistently
 RUN groupadd -r kibana && useradd -r -m -g kibana kibana
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && DEBIANFRONTEND=noninterative apt-get install -y \
         apt-transport-https \
         ca-certificates \
         wget \
@@ -38,7 +38,7 @@ RUN set -x \
     && chmod +x /usr/local/bin/tini \
     && tini -h
 
-RUN apt-get update && apt-get install -y git
+RUN apt-get update && DEBIANFRONTEND=noninterative apt-get install -y git
 #RUN curl -sL https://artifacts.elastic.co/downloads/kibana/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz | tar xvzf - --strip-components 1 -C /opt/kibana
 
 ENV KIBANA_VERSION=5.6.3
@@ -53,13 +53,13 @@ RUN git clone https://github.com/elastic/kibana /opt/kibana \
 # && curl -sL https://github.com/elastic/kibana/archive/v${KIBANA_VERSION}.tar.gz | tar xvzf - --strip-components=1 -C /opt/kibana
 
 RUN curl --silent https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
- && apt-get update && apt-get install -y lsb-release \
+ && apt-get update && DEBIANFRONTEND=noninterative apt-get install -y lsb-release \
  && export VERSION=node_6.x \
  && export DISTRO="$(lsb_release -s -c)" \
  && echo "deb https://deb.nodesource.com/$VERSION $DISTRO main" | tee /etc/apt/sources.list.d/nodesource.list \
  && echo "deb-src https://deb.nodesource.com/$VERSION $DISTRO main" | tee -a /etc/apt/sources.list.d/nodesource.list \
  && apt-get update \
- && apt-get install -y nodejs 
+ && DEBIANFRONTEND=noninterative apt-get install -y nodejs 
 
 #RUN rm -f /opt/kibana/node/bin/node /opt/kibana/node/bin/npm
 #RUN ln -sf /usr/bin/nodejs /opt/kibana/node/bin/node \
@@ -77,7 +77,7 @@ ENV PATH /opt/kibana/bin:/opt/kibana/node_modules/.bin:$PATH
 WORKDIR /opt/kibana
 
 RUN apt-get update \
- && apt-get install -y build-essential make libkrb5-dev gcc pkg-config libcairo2-dev libpng-dev libjpeg-dev libgif-dev g++ gyp node-gyp ruby ruby-dev rpm
+ && DEBIANFRONTEND=noninterative apt-get install -y build-essential make libkrb5-dev gcc pkg-config libcairo2-dev libpng-dev libjpeg-dev libgif-dev g++ gyp node-gyp ruby ruby-dev rpm
 
 RUN gem install fpm -v 1.5.0
 
@@ -85,6 +85,8 @@ RUN rm -fr node_modules \
  && npm install
 
 #RUN npm install --save-dev @elastic/babel-preset-kibana
+
+RUN mkdir -p /opt/kibana/build/services /var/log/kibana/ /usr/share/kibana/bin /etc/kibana
 
 RUN npm run build -- --skip-archives
 
