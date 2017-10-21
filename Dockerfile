@@ -88,7 +88,7 @@ RUN rm -fr node_modules \
 
 RUN mkdir -p /opt/kibana/build/services /var/log/kibana/ /usr/share/kibana/bin /etc/kibana
 
-RUN npm run build -- --skip-archives --skip-os-packages --force
+#RUN npm run build -- --skip-archives --skip-os-packages --force
 
 ENV XPACK_VERSION=5.6.3 \
     XPACK_TARBALL="https://artifacts.elastic.co/downloads/packs/x-pack/x-pack-5.6.3.zip" \
