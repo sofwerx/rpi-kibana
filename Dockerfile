@@ -5,12 +5,15 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y wget cur
 # add our user and group first to make sure their IDs get assigned consistently
 RUN groupadd -r kibana && useradd -r -m -g kibana kibana
 
+RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sources.list.d/backports.list
+
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
         apt-transport-https \
         ca-certificates \
         wget \
         libfontconfig \
         libfreetype6 \
+        libsass-dev \
     --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
 # grab gosu for easy step-down from root
