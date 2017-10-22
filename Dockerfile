@@ -90,18 +90,18 @@ RUN mkdir -p /opt/kibana/build/services /var/log/kibana/ /usr/share/kibana/bin /
 
 #RUN npm run build -- --skip-archives --skip-os-packages --force
 
-ENV XPACK_VERSION=5.6.3 \
-    XPACK_TARBALL="https://artifacts.elastic.co/downloads/packs/x-pack/x-pack-5.6.3.zip" \
-    XPACK_TARBALL_SHA1="fa9b2b58bf7d373202f586036d4ddf760b6eeba0"
+#ENV XPACK_VERSION=5.6.3 \
+#    XPACK_TARBALL="https://artifacts.elastic.co/downloads/packs/x-pack/x-pack-5.6.3.zip" \
+#    XPACK_TARBALL_SHA1="fa9b2b58bf7d373202f586036d4ddf760b6eeba0"
 
-# Install X-PACK
-RUN set -ex ; \
-    wget -O x-pack.tar.gz "$XPACK_TARBALL"; \
-    if [ "$XPACK_TARBALL_SHA1" ]; then \
-      echo "$XPACK_TARBALL_SHA1 *x-pack.tar.gz" | sha1sum -c -; \
-    fi; \
-    kibana-plugin install --batch file://$PWD/x-pack.tar.gz ; \
-    rm -f x-pack.tar.gz
+## Install X-PACK
+#RUN set -ex ; \
+#    wget -O x-pack.tar.gz "$XPACK_TARBALL"; \
+#    if [ "$XPACK_TARBALL_SHA1" ]; then \
+#      echo "$XPACK_TARBALL_SHA1 *x-pack.tar.gz" | sha1sum -c -; \
+#    fi; \
+#    kibana-plugin install --batch file://$PWD/x-pack.tar.gz ; \
+#    rm -f x-pack.tar.gz
 
 COPY docker-entrypoint.sh /
 
