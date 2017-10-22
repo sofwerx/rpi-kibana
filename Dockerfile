@@ -71,14 +71,14 @@ RUN git clone https://github.com/elastic/kibana /opt/kibana \
 # && mkdir -p /opt/kibana \
 # && curl -sL https://github.com/elastic/kibana/archive/v${KIBANA_VERSION}.tar.gz | tar xvzf - --strip-components=1 -C /opt/kibana
 
-#RUN curl --silent https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
- #&& apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y lsb-release \
- #&& export VERSION=node_6.x \
- #&& export DISTRO="$(lsb_release -s -c)" \
- #&& echo "deb https://deb.nodesource.com/$VERSION $DISTRO main" | tee /etc/apt/sources.list.d/nodesource.list \
- #&& echo "deb-src https://deb.nodesource.com/$VERSION $DISTRO main" | tee -a /etc/apt/sources.list.d/nodesource.list \
- #&& apt-get update \
- #&& DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
+RUN curl --silent https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
+ && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y lsb-release \
+ && export VERSION=node_6.x \
+ && export DISTRO="$(lsb_release -s -c)" \
+ && echo "deb https://deb.nodesource.com/$VERSION $DISTRO main" | tee /etc/apt/sources.list.d/nodesource.list \
+ && echo "deb-src https://deb.nodesource.com/$VERSION $DISTRO main" | tee -a /etc/apt/sources.list.d/nodesource.list \
+ && apt-get update \
+ && DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
 
 #RUN rm -f /opt/kibana/node/bin/node /opt/kibana/node/bin/npm
 #RUN ln -sf /usr/bin/nodejs /opt/kibana/node/bin/node \
