@@ -14,7 +14,24 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
         libfontconfig \
         libfreetype6 \
         libsass-dev \
-    --no-install-recommends && rm -rf /var/lib/apt/lists/*
+        gyp \
+        node-gyp \
+        nodejs \
+        npm \
+        git \
+        build-essential \
+        make \
+        libkrb5-dev \
+        gcc \
+        pkg-config \
+        libcairo2-dev \
+        libpng-dev \
+        libjpeg-dev \
+        libgif-dev \
+        g++ \
+        ruby \
+        ruby-dev \
+        rpm
 
 # grab gosu for easy step-down from root
 ENV GOSU_VERSION 1.10
@@ -41,7 +58,6 @@ RUN set -x \
     && chmod +x /usr/local/bin/tini \
     && tini -h
 
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y git
 #RUN curl -sL https://artifacts.elastic.co/downloads/kibana/kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz | tar xvzf - --strip-components 1 -C /opt/kibana
 
 ENV KIBANA_VERSION=5.6.3
@@ -55,14 +71,14 @@ RUN git clone https://github.com/elastic/kibana /opt/kibana \
 # && mkdir -p /opt/kibana \
 # && curl -sL https://github.com/elastic/kibana/archive/v${KIBANA_VERSION}.tar.gz | tar xvzf - --strip-components=1 -C /opt/kibana
 
-RUN curl --silent https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
- && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y lsb-release \
- && export VERSION=node_6.x \
- && export DISTRO="$(lsb_release -s -c)" \
- && echo "deb https://deb.nodesource.com/$VERSION $DISTRO main" | tee /etc/apt/sources.list.d/nodesource.list \
- && echo "deb-src https://deb.nodesource.com/$VERSION $DISTRO main" | tee -a /etc/apt/sources.list.d/nodesource.list \
- && apt-get update \
- && DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
+#RUN curl --silent https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
+ #&& apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y lsb-release \
+ #&& export VERSION=node_6.x \
+ #&& export DISTRO="$(lsb_release -s -c)" \
+ #&& echo "deb https://deb.nodesource.com/$VERSION $DISTRO main" | tee /etc/apt/sources.list.d/nodesource.list \
+ #&& echo "deb-src https://deb.nodesource.com/$VERSION $DISTRO main" | tee -a /etc/apt/sources.list.d/nodesource.list \
+ #&& apt-get update \
+ #&& DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
 
 #RUN rm -f /opt/kibana/node/bin/node /opt/kibana/node/bin/npm
 #RUN ln -sf /usr/bin/nodejs /opt/kibana/node/bin/node \
