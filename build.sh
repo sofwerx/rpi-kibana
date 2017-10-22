@@ -11,6 +11,7 @@
 ) &
 KEEPALIVE_PID=$!
 
+docker pull ${TRAVIS_REPO_SLUG}:latest
 docker build -t ${TRAVIS_REPO_SLUG}:latest .
 
 if ps -p $KEEPALIVE_PID > /dev/null
